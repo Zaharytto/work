@@ -2,6 +2,6 @@
 
 $usersLogin = [
     'admin',
-    //'login2',
-    //'logggin3',
+    'login2',
+    'logggin3',
 ];
