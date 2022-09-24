@@ -31,38 +31,27 @@ if(isset($_POST['send'])) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/templates/header.php';
+?>
 <body>
-    
-<div>
-    <a href="/mywebsite/index.php?login=yes">Авторизация</a>
-</div>
+    <div>
+        <a href="/mywebsite/index.php?login=yes">Авторизация</a>
+    </div>
 
-<?php if (isset($_GET['login'])) :?>                               
+    <?php if (isset($_GET['login'])) :?>                               
 
-<form action ="/mywebsite/index.php?login=yes" method = "post">    
-   <p>
-       <p><strong>Логин</strong>:</p>
-       <input type = "text" name = "login" value = "<?= $displayLogin; ?>">
-   </p>
-
-   <p>
-       <p><strong>Пароль</strong>:</p>
-       <input type = "text" name = "password" value = "<?= $displayPassword; ?>">
-   </p>
+    <form action ="/mywebsite/index.php?login=yes" method = "post">    
+        <p><strong>Логин</strong>:</p>
+        <input type = "text" name = "login" value = "<?= $displayLogin; ?>">
    
-   <p>
-       <input type = "submit" name = "send">
-   </p>
+        <p><strong>Пароль</strong>:</p>
+        <input type = "text" name = "password" value = "<?= $displayPassword; ?>">
 
-</form>
-
-<?php endif; ?>
-
+        <input type = "submit" name = "send">
+    </form>
+    <?php endif; ?>
 </body>
-</html>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/templates/footer.php';
+?>
