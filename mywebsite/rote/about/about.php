@@ -10,5 +10,3 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/templates/header.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/templates/footer.php';
 ?>
     
-
-    
