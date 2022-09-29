@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/src/core.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/rote/main_menu.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/route/main_menu.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/rote/main_menu.php';
     <title>Document</title>
     <div class = "menu-header">
         <ul>
-        <?=showMenu(arraySort($mainMenu));?>
+        <?=showMenu(arraySort($mainMenu), $html);?>
         </ul>
     </div>
 </head>

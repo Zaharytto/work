@@ -2,7 +2,7 @@
 
 function arraySort (array $array, $key = 'sort', $sort = SORT_ASC): array
 {
-    $price = array();
+    $price = [];
     foreach ($array as $i => $row) {
 
         $price[$i] = $row[$key];
