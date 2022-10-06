@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/route/main_menu.php';
     <title>Document</title>
     <div class = "menu-header">
         <ul>
-        <?=showMenu(arraySort($mainMenu), $html);?>
+        <?=showMenu(arraySort($mainMenu));?>
         </ul>
     </div>
 </head>
