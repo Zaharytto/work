@@ -1,6 +1,6 @@
 <?php
 
-function showMenu($array)
+function showMenu ($array)
 {
     $html = '';
 
@@ -15,5 +15,3 @@ function showMenu($array)
     }
     return $html;
 }
-
-

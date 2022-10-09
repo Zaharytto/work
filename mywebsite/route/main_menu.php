@@ -15,7 +15,7 @@ $mainMenu = [
     
     [
         'title' => 'Главная',
-        'path' => '/mywebsite/route/home/home.php',
+        'path' => '/mywebsite/index.php',
         'sort' => 3,
     ],
     
