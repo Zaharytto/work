@@ -15,3 +15,20 @@ function showMenu ($array)
     }
     return $html;
 }
+
+
+function showMenuBeforeAuthorization ($array)
+{
+    $html = '';
+
+    foreach ($array as $value) {
+        $path = '/mywebsite/index.php';
+        $title = $value['title'];
+        $class = '';
+        if ($_SERVER['PHP_SELF'] === $value['path']) {
+            $class = 'text-decoration:underline';
+        }
+        $html .= "<li> <a href =$path style =$class>$title</a></li>";
+    }
+    return $html;
+}
