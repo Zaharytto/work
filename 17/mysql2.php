@@ -9,7 +9,7 @@ $dbname = 'mydb';
 $connect = mysqli_connect ($host, $user, $password, $dbname); 
 
 // 1 Запрос, добавляющий Уругвай в таблицу со странами
-/*
+
 if (mysqli_connect_errno()) {
     echo mysqli_connect_error();
 } else {
@@ -19,10 +19,10 @@ if (mysqli_connect_errno()) {
 }
 
 mysqli_close($connect);
-*/
+
 
 // 2 Запрос, добавляющий класс животных «Насекомые»
-/*
+
 if (mysqli_connect_errno()) {
     echo mysqli_connect_error();
 } else {
@@ -32,7 +32,7 @@ if (mysqli_connect_errno()) {
 }
 
 mysqli_close($connect);
-*/
+
 
 
 // 3 Запрос, добавляющий вымышленный класс животных «Несуществующие», среди них точно бывают летающие
