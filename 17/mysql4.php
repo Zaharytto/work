@@ -18,7 +18,7 @@ if (mysqli_connect_errno()) {
         "delete from animals where name = 'Пернатый голубокрый дракон-утконос'");
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -32,7 +32,7 @@ if (mysqli_connect_errno()) {
         "delete from cities");
 }
 
-mysqli_close($connect);
+
 
 
 // 3 Запрос, который удалит страну с кодом URY

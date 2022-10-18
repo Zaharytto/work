@@ -18,7 +18,7 @@ if (mysqli_connect_errno()) {
         "insert into countries set name = 'Уругвай', code = '1'");
 }
 
-mysqli_close($connect);
+
 
 
 // 2 Запрос, добавляющий класс животных «Насекомые»
@@ -31,7 +31,7 @@ if (mysqli_connect_errno()) {
         "insert into animal_classes set name = 'Насекомые'");
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -45,7 +45,7 @@ if (mysqli_connect_errno()) {
         "insert into animal_classes set name = 'Несуществующие'");
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -59,7 +59,7 @@ if (mysqli_connect_errno()) {
         "insert into animals set name = 'Пернатый дракон-утконос', can_flying = 1, class_id = 1");
 }
 
-mysqli_close($connect);
+
 
 
 

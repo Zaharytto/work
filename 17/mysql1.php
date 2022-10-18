@@ -21,7 +21,7 @@ if (mysqli_connect_errno()) {
         }
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -38,7 +38,7 @@ if (mysqli_connect_errno()) {
         }
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -55,7 +55,7 @@ if (mysqli_connect_errno()) {
         }
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -72,7 +72,7 @@ if (mysqli_connect_errno()) {
         }
 }
 
-mysqli_close($connect);
+
 
 
 // 5 Выбрать только название и значение признака (бывают ли среди них летающие) из таблицы с классами животных

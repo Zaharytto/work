@@ -18,7 +18,7 @@ if (mysqli_connect_errno()) {
         "update animal_classes set can_flying = 1 where id = 1");
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -32,7 +32,7 @@ if (mysqli_connect_errno()) {
         "update countries set code = 'URY' where id = 1");
 }
 
-mysqli_close($connect);
+
 
 
 
@@ -46,7 +46,7 @@ if (mysqli_connect_errno()) {
         "update animals set name = 'Пернатый голубокрый дракон-утконос' where id = 3");
 }
 
-mysqli_close($connect);
+
 
 
 
