@@ -36,6 +36,7 @@ if(isset($_POST['send'])) {
     }
     $pdo = null;
     $result = null;
+    $resultPassword = null;
 } 
 
 ?>
