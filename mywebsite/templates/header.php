@@ -14,13 +14,14 @@ if(isset($_POST['send'])) {
     $login = $_POST['login'];
     $password = $_POST['password'];
 
-    $hash = '$2y$10$.vB1woH74N3ypvk.KNb7m.CB0DWj72vt.4h0IxiwecYfoaUhe3Dfq';
+    $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
+    $result = $pdo -> prepare("SELECT login, password FROM `users` WHERE `login` = :login");
+    $result -> execute(['login' => $login]);
+    $resultPassword = $result -> fetchColumn(1);
+
+    $hash = $resultPassword;
 
     if (password_verify($password, $hash)) {
-
-        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
-        $result = $pdo -> prepare("SELECT * FROM `users` WHERE `login` = :login");
-        $result -> execute(['login' => $login]);
     
         if ($result -> rowCount() > 0) {
             session_start();
