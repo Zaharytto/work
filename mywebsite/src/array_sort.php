@@ -2,12 +2,12 @@
 
 function arraySort (array $array, $key = 'sort', $sort = SORT_ASC): array
 {
-    $price = [];
-    foreach ($array as $i => $row) {
+    $arrayBefore = [];
+    foreach ($array as $i => $value) {
 
-        $price[$i] = $row[$key];
+        $arrayBefore[$i] = $value[$key];
     }
 
-     array_multisort($price, $sort, $array);
+     array_multisort($arrayBefore, $sort, $array);
      return $array; 
 }

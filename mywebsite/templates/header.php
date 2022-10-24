@@ -6,26 +6,36 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/include/success_message.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/mywebsite/include/error_message.php';
 
 
+
 $displayLogin = '';
 $displayPassword = '';
 if(isset($_POST['send'])) {
-    if (array_search($_POST['login'], $usersLogin) === array_search($_POST['password'], $usersPass)) {
-        if (in_array($_POST['login'], $usersLogin) && in_array($_POST['password'], $usersPass)) {
+    
+    $login = $_POST['login'];
+    $password = $_POST['password'];
+
+    $hash = '$2y$10$.vB1woH74N3ypvk.KNb7m.CB0DWj72vt.4h0IxiwecYfoaUhe3Dfq';
+
+    if (password_verify($password, $hash)) {
+
+        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
+        $result = $pdo -> prepare("SELECT * FROM `users` WHERE `login` = :login");
+        $result -> execute(['login' => $login]);
+    
+        if ($result -> rowCount() > 0) {
             session_start();
             setcookie('login', $_POST['login'], time() + 60 * 60 * 24 * 30, '/mywebsite');
             $_SESSION['login'] = $_POST['login'];
-            echo $success;
-        } else {
-            $displayLogin = $_POST['login'];
-            $displayPassword = $_POST['password'];
-            echo $error;
+            echo $success;        
         }
     } else {
         $displayLogin = $_POST['login'];
         $displayPassword = $_POST['password'];
         echo $error;
-    }    
-}
+    }
+    $pdo = null;
+    $result = null;
+} 
 
 ?>
 <!DOCTYPE html>
@@ -37,9 +47,9 @@ if(isset($_POST['send'])) {
     <div class = "menu-header">
         <ul>
         <?php if (validAuthorization ()) :?>
-            <?= showMenu(arraySort($mainMenu)); ?>  
+            <?= showMenu(arraySort($mainMenu, 'title', SORT_ASC)); ?>  
         <?php else :?>
-            <?= showMenuBeforeAuthorization(arraySort($mainMenu)); ?>
+            <?= showMenuBeforeAuthorization(arraySort($mainMenu, 'title', SORT_ASC)); ?>
         <?php endif; ?>
         </ul>
     </div>

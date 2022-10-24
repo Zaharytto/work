@@ -36,4 +36,10 @@ $mainMenu = [
         'path' => '/mywebsite/route/gallery/gallery.php',
         'sort' => 6,
     ],
+
+    [
+        'title' => 'Профиль',
+        'path' => '/mywebsite/route/profile/profile.php',
+        'sort' => 7,
+    ],
 ];
