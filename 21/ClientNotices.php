@@ -1,43 +1,43 @@
 <?php
 class User 
 {
-    public $name;
-    public $email;
-    public $contact;
-    public $age;
+    public string $name;
+    public string $email;
+    public int $phone;
+    public int $age;
 
-    public function  __construct($name, $email, $contact = '', $age =  '')
+    public function  __construct($name, $email, $phone = 0, $age = 0)
     {
         $this->name = $name;
         $this->email = $email;
-        $this->contact = $contact;
+        $this->phone = $phone;
         $this->age = $age;
     }
 
-    public function getName()
+    public function getName():string
     {
         return $this->name;
     }
 
-    public function getEmail()
+    public function getEmail():string
     {
         return $this->email;
     }
 
-    public function getPhone()
+    public function getPhone():int
     {
-        return $this->contact;
+        return $this->phone;
     }
 
-    public function isAdult()
+    public function isAdult():bool
     {
-        return true ? $this->age >= 18 : $this->age < 18;
+        return $this->age >= 18 ?? true;
     }
 }
 
 class Censor 
 {
-    public function censor($message)
+    public function censor($message):string
     {
         return substr_replace($message, '***', 0,);
     }
@@ -45,11 +45,18 @@ class Censor
 
 class Notification
 {
-    public $notificationChannel;
+    public const EMAIL_CHANNEL = 'email';
+    public const PHONE_CHANNEL = 'phone';
+    public const AVAIABLE_CHANNEL = [
+    self::EMAIL_CHANNEL,
+    self::PHONE_CHANNEL
+    ];
     
     public function  __construct($notificationChannel)
     {
-        $this->notificationChannel = $notificationChannel;
+        if (in_array ($notificationChannel, Notification::AVAIABLE_CHANNEL)) {
+            $this->notificationChannel = $notificationChannel;
+            }
     }
 
     public function sendTo($name, $contact, $message)
@@ -60,8 +67,8 @@ class Notification
 }
 
 
-$Petya = new User('Петя', 'petya@gmail.com', '+375257845168', '25');
-$Dima = new User('Дима', 'dima@mail.ru');
+$petya = new User('Петя', 'petya@gmail.com', +375257845168, 20);
+ $dima = new User('Дима', 'dima@mail.ru');
 
 
 function notify(User $user, $message)
@@ -71,17 +78,19 @@ function notify(User $user, $message)
     } else {
         $censor = new Censor();
         $messageNew = $censor->censor($message);
-        $userNew = new Notification($user->getEmail());
-        if (!empty($user->contact)) {
-            return $userNew->sendTo($user->name, $user->contact, $messageNew);
+
+        if ($user->phone != 0) {
+            $notif = new Notification(Notification::PHONE_CHANNEL);
+            return $notif->sendTo($user->name, $user->phone, $messageNew);
         } else {
-            return $userNew->sendTo($user->name, $user->contact, $messageNew);
+            $notif = new Notification(Notification::EMAIL_CHANNEL);
+            return $notif->sendTo($user->name, $user->email, $messageNew);
         }
     }
 }
 
 $messageFromPetya = 'Привет, как дела?';
 $messageFromDima = 'Привет, когда приедешь в гости?';
-var_dump(notify($Petya, $messageFromPetya));
-var_dump(notify($Dima, $messageFromDima));
+var_dump(notify($petya, $messageFromPetya));
+var_dump(notify($dima, $messageFromDima));
 
