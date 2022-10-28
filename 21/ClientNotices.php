@@ -59,7 +59,7 @@ class Notification
             }
     }
 
-    public function sendTo($name, $contact, $message)
+    public function sendTo($name, $contact, $message):string
     {
         return "Уведомление клиенту: $name на $this->notificationChannel ($contact): $message";
     }
