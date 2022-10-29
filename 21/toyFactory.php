@@ -38,3 +38,5 @@ foreach($toys as $value) {
 }
 
 echo 'Итого - ' . $allPrice . '$';
+
+
