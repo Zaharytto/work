@@ -52,34 +52,6 @@ class Basket
     }
 }
 
-/*
-class BasketPosition
-{
-    public $product;
-    public $quantity;
-
-    public function __construct($product, $quantity)
-    {
-        $this->product = $product;
-        $this->quantity = $quantity;
-    }
-
-    public function getProduct()
-    {
-        return $this->product;
-    }
-
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    public function getPrice()
-    {
-        //return new Product $product->getPrice();            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                             
-    }
-}
-*/
 
 class Product 
 {
