@@ -1,4 +1,7 @@
 <?php
+
+namespace App\ToyFactory;
+
 class ToyFactory
 {
     public function createToy(string $name): Toy

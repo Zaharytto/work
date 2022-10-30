@@ -1,4 +1,7 @@
 <?php
+
+namespace App\ClientNotices;
+
 class User 
 {
     public string $name;
@@ -66,8 +69,8 @@ class Notification
 }
 
 
-$petya = new User('Петя', 'petya@gmail.com', +375257845168, 20);
-$dima = new User('Дима', 'dima@mail.ru');
+// $petya = new User('Петя', 'petya@gmail.com', +375257845168, 20);
+// $dima = new User('Дима', 'dima@mail.ru');
 
 
 function notify(User $user, $message)
@@ -88,7 +91,7 @@ function notify(User $user, $message)
     }
 }
 
-$messageFromPetya = 'Привет, как дела?';
-$messageFromDima = 'Привет, когда приедешь в гости?';
-var_dump(notify($petya, $messageFromPetya));
-var_dump(notify($dima, $messageFromDima));
+// $messageFromPetya = 'Привет, как дела?';
+// $messageFromDima = 'Привет, когда приедешь в гости?';
+// var_dump(notify($petya, $messageFromPetya));
+// var_dump(notify($dima, $messageFromDima));

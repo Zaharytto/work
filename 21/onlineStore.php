@@ -1,6 +1,8 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/21/ClientNotices.php';
+namespace App\OnlineStore;
+
+require_once $_SERVER['DOCUMENT_ROOT'].'/21/clientNotices.php';
 
 
 class Order
@@ -42,13 +44,15 @@ class Basket
 
     public function describe()
     { 
+        $info = '';
         foreach ($this->goodsPositions as $key => $values) {      
-            return "$key - $values ";
+            $info .= "$key - $values ";
         }
+        return $info;
     }
 }
 
-
+/*
 class BasketPosition
 {
     public $product;
@@ -75,7 +79,7 @@ class BasketPosition
         //return new Product $product->getPrice();            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                             
     }
 }
-
+*/
 
 class Product 
 {
@@ -100,7 +104,6 @@ class Product
 }
 
 
-
 //создаём продукты
 $iceCream = new Product('Мороженное', '100');
 $spinach = new Product('Шпинат', '50');
@@ -114,34 +117,13 @@ $product = $newBasket->addProduct($spinach);
 
 //оформляем заказ с доставкой
 $order = new Order($product, '25');
-
 echo "Заказ, на сумму: " . $order->getPrice() . " Состав: " . $newBasket->describe();
 
-
-
-
 //создаём клиетна 
-$client = new User('Николай Николаевич', 'kolya@gmail.com', +375295648795, 42);
+namespace App\ClientNotices;
+
+$client = new User('Николай Николаевич', 'kolya@gmail.com', +375295648795, 15);
 
 //отправляем уведомление клиенту
-
-function notify(User $user, $message)
-{
-    if ($user->isAdult()) {
-        return $message;
-    } else {
-        $censor = new Censor();
-        $messageNew = $censor->censor($message);
-
-        if (!empty($user->email) && $user->phone !== 0) {
-            $notifEmail = new Notification(Notification::EMAIL_CHANNEL);
-            $notifPhone = new Notification(Notification::PHONE_CHANNEL);
-            return $notifPhone->sendTo($user->name, $user->phone, $messageNew) . $notifEmail->sendTo($user->name, $user->email, $messageNew);
-        }             
-        $notif = new Notification(Notification::EMAIL_CHANNEL);
-        return$notif->sendTo($user->name, $user->email, $messageNew);
-    }
-}
-
 $messageFromClient = "Для вас создан заказ, на сумму: " . $order->getPrice() . " Состав: " . $newBasket->describe();
 var_dump(notify($client, $messageFromClient));
