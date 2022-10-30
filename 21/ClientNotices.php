@@ -95,4 +95,3 @@ $messageFromPetya = 'Привет, как дела?';
 $messageFromDima = 'Привет, когда приедешь в гости?';
 var_dump(notify($petya, $messageFromPetya));
 var_dump(notify($dima, $messageFromDima));
-//
