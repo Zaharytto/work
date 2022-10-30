@@ -80,7 +80,7 @@ class Product
 $iceCream = new Product('Мороженное', '100');
 $spinach = new Product('Шпинат', '50');
 
-//берём карзину
+//берём корзину
 $newBasket = new Basket();
 
 //положили эти 2 продукта в корзину
