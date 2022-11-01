@@ -15,7 +15,7 @@ class HungryCat
         $this->favoriteFood = $favoriteFood;
     }
 
-    public function eat($food)
+    public function eat($food):string
     {
         if ($food === $this->favoriteFood) {
             echo "Голодный кот " . $this->name . ", особые приметы: цвет - " . $this->color . ", съел $food и замурчал 'мррррр' от своей любимой еды" . '<br>';

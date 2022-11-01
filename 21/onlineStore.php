@@ -10,20 +10,20 @@ class Order
     public $basket;
     public $costOfDelivery;
 
-    public function __construct($basket, $costOfDelivery)
+    public function __construct(Basket $basket, $costOfDelivery)
     {
         $this->basket = $basket;
         $this->costOfDelivery = $costOfDelivery;
     }
 
-    public function getBasket()
+    public function getBasket():object
     {
         return $this->basket;                                           
     }
 
-    public function getPrice()
+    public function getPrice():int
     {
-        return array_sum($this->basket) + $this->costOfDelivery;
+        return $this->basket->getPrice() + $this->costOfDelivery;
     }
 }
 
@@ -32,21 +32,26 @@ class Basket
 {
     public $goodsPositions = [];
 
-    public function addProduct(Product $product)
+    public function addProduct(Product $product):array
     {
-        return $this->goodsPositions += [$product->getName() => $product->getPrice()];
+        return $this->goodsPositions[] = ['product' => $product];
     }
 
-    public function getPrice()
+    public function getPrice():int
     {
-        return array_sum($this->goodsPositions);   
-    }
+        $priceAll = 0;
+        foreach ($this->goodsPositions as $value) {
+            $priceAll += $value['product']->getPrice();
+        }
+        return $priceAll;
 
-    public function describe()
+    }
+            
+    public function describe():string
     { 
         $info = '';
-        foreach ($this->goodsPositions as $key => $values) {      
-            $info .= "$key - $values ";
+        foreach ($this->goodsPositions as $value) {      
+            $info .= $value['product']->getName() . ' - ' . $value['product']->getPrice() . ' ';
         }
         return $info;
     }
@@ -64,12 +69,12 @@ class Product
         $this->price = $price;
     }
 
-    public function getName()
+    public function getName():string
     {
         return $this->name;
     }
 
-    public function getPrice()
+    public function getPrice():int
     {
         return $this->price;
     }
@@ -84,12 +89,13 @@ $spinach = new Product('Шпинат', '50');
 $newBasket = new Basket();
 
 //положили эти 2 продукта в корзину
-$product = $newBasket->addProduct($iceCream);
-$product = $newBasket->addProduct($spinach);
+$newBasket->addProduct($iceCream);
+$newBasket->addProduct($spinach);
 
 //оформляем заказ с доставкой
-$order = new Order($product, '25');
+$order = new Order($newBasket, '25');
 echo "Заказ, на сумму: " . $order->getPrice() . " Состав: " . $newBasket->describe();
+
 
 //создаём клиетна 
 namespace App\ClientNotices;
