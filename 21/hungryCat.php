@@ -36,3 +36,5 @@ $hungryCat1->eat('Паштет');
 $hungryCat2->eat('Корм со вкусом Рыбы');
 $hungryCat2->eat('Рыбу');
 $hungryCat2->eat('Паштет');
+
+

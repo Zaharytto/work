@@ -42,3 +42,5 @@ $homeZoo = [$catMurzik -> name, $catbel -> name, $dogShar -> name, $dogPina -> n
 foreach ($homeZoo as $value) {
     echo $value . '<br>';
 }
+
+

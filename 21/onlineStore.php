@@ -108,3 +108,5 @@ $client = new User('Николай Николаевич', 'kolya@gmail.com', +37
 //отправляем уведомление клиенту
 $messageFromClient = "Для вас создан заказ, на сумму: " . $order->getPrice() . " Состав: " . $newBasket->describe();
 var_dump(notify($client, $messageFromClient));
+
+
