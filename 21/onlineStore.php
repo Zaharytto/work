@@ -7,8 +7,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/21/clientNotices.php';
 
 class Order
 {
-    public $basket;
-    public $costOfDelivery;
+    public object $basket;
+    public int $costOfDelivery;
 
     public function __construct(Basket $basket, $costOfDelivery)
     {
@@ -30,28 +30,31 @@ class Order
 
 class Basket
 {
-    public $goodsPositions = [];
+    private array $goodsPositions = [];
 
     public function addProduct(Product $product):array
     {
-        return $this->goodsPositions[] = ['product' => $product];
+        return $this->goodsPositions[] = [$product];
     }
 
     public function getPrice():int
     {
         $priceAll = 0;
-        foreach ($this->goodsPositions as $value) {
-            $priceAll += $value['product']->getPrice();
+        foreach ($this->goodsPositions as $key => $value) {
+            foreach ($value as $key => $valueee) {
+                $priceAll += $value[$key]->getPrice();
+            }
         }
         return $priceAll;
-
     }
             
     public function describe():string
     { 
         $info = '';
-        foreach ($this->goodsPositions as $value) {      
-            $info .= $value['product']->getName() . ' - ' . $value['product']->getPrice() . ' ';
+        foreach ($this->goodsPositions as $key => $value) { 
+            foreach ($value as $key => $valueee) {
+                $info .= $value[$key]->getName() . ' - ' . $value[$key]->getPrice() . ' ';
+            }     
         }
         return $info;
     }
@@ -60,8 +63,8 @@ class Basket
 
 class Product 
 {
-    public $name;
-    public $price;
+    public string $name;
+    public int $price;
 
     public function __construct($name, $price)
     {
