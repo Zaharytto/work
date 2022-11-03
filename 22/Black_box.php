@@ -6,7 +6,8 @@ class BlackBox
 
     public function addLog(string $message)
     {
-            return $this->data[] = $message;
+        $i = count($this->data);
+        return $this->data[] = $i . '-' . $message;
     }
 
     public function getData(int $accessLevel): array
@@ -102,54 +103,11 @@ $getBox = $airplane->getBlackBox();
 
 //Создаём инженера
 $engineer = new Engineer(rand(0, 5));
+
+//Расшифровываем чёрный ящик из разбившегося самолёта
 $decode = $engineer->decodeBox($getBox);
-var_dump($engineer);
-var_dump($decode);
 
+foreach ($decode as $value) {
+    echo $value . '<br>';
+}
 
-
-
-
-
-
-
-
-/*
-
-
-
- foreach($log as $value) {
-            $this->blackBox->addLog($value);
-        } 
-
-
-
-
-public function flyAndCrush()
-    {
-        $message = [
-            'Полёт нормальный',
-            'Погода за бортом отличная',
-            'Замечено странное движение на 47 градусе',
-            'Попадание огромного птеродактиля в двигатель',
-            'Отказ одного двигателя, переход на резервный',
-            'Отказ всех двигателей',
-            'Оторвало крыло',
-            'Мы падаем!'
-        ];
-
-        return $message;
-    }
-
-    private function addLog(string $message)
-    {
-        $info = $this->flyAndCrush();
-
-        foreach($info as $value) {
-            $message .= $this->blackBox->addLog(date("Y.m.d H:i:s") . $value);
-        }
-
-        return $message;
-    }
-
-*/
