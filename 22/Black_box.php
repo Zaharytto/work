@@ -92,7 +92,7 @@ $airplane = new Plane($blackBoxAirplane);
 // Полетал и разбился 
 $airplane->flyAndCrush();
 
-//Берём из Самолёта чёрный ящик. $getBox - повидимому обьект чёрного ящика
+//Берём из Самолёта чёрный ящик.
 // $getBox = $airplane->getBlackBox();
 
 
