@@ -50,14 +50,11 @@ class Plane
             'Мы падаем!'
         ];
 
-        foreach($log as $value) {
-            $this->blackBox->addLog($value);
-        } 
-        return $this->blackBox;
+        return $log;
 
     }
 
-    private function addLog(string $message)
+    private function addLog(string $message) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     {
         $this->blackBox->addLog(date("Y.m.d H:i:s") . $message);  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
@@ -93,9 +90,7 @@ $blackBoxAirplane = new BlackBox();
 $airplane = new Plane($blackBoxAirplane);
 
 // Полетал и разбился 
-// $airplane->flyAndCrush();
-
-var_dump($airplane->flyAndCrush());
+$airplane->flyAndCrush();
 
 //Берём из Самолёта чёрный ящик. $getBox - повидимому обьект чёрного ящика
 // $getBox = $airplane->getBlackBox();
@@ -109,6 +104,15 @@ var_dump($airplane->flyAndCrush());
 
 
 /*
+
+
+
+ foreach($log as $value) {
+            $this->blackBox->addLog($value);
+        } 
+
+
+
 
 public function flyAndCrush()
     {
