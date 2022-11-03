@@ -35,11 +35,9 @@ class Plane
         $this->blackBox = $blackBox;
     }
 
-
-
-
     public function flyAndCrush()
     {
+        
         $log = [
             'Полёт нормальный',
             'Погода за бортом отличная',
@@ -51,13 +49,15 @@ class Plane
             'Мы падаем!'
         ];
 
-        return $log;
-
+        foreach($log as $value) {
+            $this->blackBox->addLog($value);
+        }
+        
     }
 
     private function addLog(string $message) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     {
-        return date("Y.m.d H:i:s") . $this->blackBox->addLog($message);  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        return date("Y.m.d H:i:s") . $message;  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
 
@@ -93,13 +93,8 @@ $airplane = new Plane($blackBoxAirplane);
 // Полетал и разбился 
 $log = $airplane->flyAndCrush();
 
-foreach($log as $value) {
-    $blackBoxAirplane->addLog($value);
-}
-
 //Берём из Самолёта чёрный ящик.
 $getBox = $airplane->getBlackBox();
-
 
 //Создаём инженера
 $engineer = new Engineer(rand(0, 5));
