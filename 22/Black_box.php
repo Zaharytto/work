@@ -56,7 +56,7 @@ class Plane
 
     private function addLog(string $message) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     {
-        $this->blackBox->addLog(date("Y.m.d H:i:s") . $message);  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        return date("Y.m.d H:i:s") . $this->blackBox->addLog($message);  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
 
@@ -90,10 +90,21 @@ $blackBoxAirplane = new BlackBox();
 $airplane = new Plane($blackBoxAirplane);
 
 // Полетал и разбился 
-$airplane->flyAndCrush();
+$log = $airplane->flyAndCrush();
+
+foreach($log as $value) {
+    $blackBoxAirplane->addLog($value);
+}
 
 //Берём из Самолёта чёрный ящик.
-// $getBox = $airplane->getBlackBox();
+$getBox = $airplane->getBlackBox();
+
+
+//Создаём инженера
+$engineer = new Engineer(rand(0, 5));
+$decode = $engineer->decodeBox($getBox);
+var_dump($engineer);
+var_dump($decode);
 
 
 
