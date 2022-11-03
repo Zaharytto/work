@@ -14,17 +14,18 @@ class BlackBox
     {
         $info = [];
         if ($accessLevel <= 1) {
-            return $info[] = [$this->data[0], 'Доступ запрещен'];
+            return $info = [$this->data[0], 'Доступ запрещен'];
         } else if ($accessLevel <= 3) {  
-            return $info[] = [$this->data[0], $this->data[1], 'Ваш уровень доступа не позволяет получить больше данных'];   
+            return $info = [$this->data[0], $this->data[1], 'Ваш уровень доступа не позволяет получить больше данных'];   
         } else {
-            foreach ($this->data as $value) {
-                $info[] = $value;
+            foreach ($this->data as $key => $value) {
+                $info[$key] = $value;
             }
             return $info;
         }
     }
 }
+
 
 class Plane 
 {
@@ -48,16 +49,17 @@ class Plane
             'Оторвало крыло',
             'Мы падаем!'
         ];
+        $message = [];
 
         foreach($log as $value) {
-            $this->blackBox->addLog($value);
+            $message[] .= $this->addLog($value) . '<br>';
         }
-        
+        return $message;
     }
 
-    private function addLog(string $message) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private function addLog(string $message)
     {
-        return date("Y.m.d H:i:s") . $message;  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        return date("Y.m.d H:i:s") . $message;
     }
 
 
@@ -84,22 +86,29 @@ class Engineer
 
 
 
-//Создали чёрный ящик
+    //Создали чёрный ящик
 $blackBoxAirplane = new BlackBox();
 
-//Создали Самолёт
+    //Создали Самолёт
 $airplane = new Plane($blackBoxAirplane);
 
-// Полетал и разбился 
+    // Полетал и разбился 
+
+//Добавили запись в чёрный ящик.
 $log = $airplane->flyAndCrush();
 
-//Берём из Самолёта чёрный ящик.
+//Добавили новую запись в лог
+foreach ($log as $value) {
+    $blackBoxAirplane->addLog($value);
+}
+
+    //Берём из Самолёта чёрный ящик
 $getBox = $airplane->getBlackBox();
 
-//Создаём инженера
+    //Создаём инженера
 $engineer = new Engineer(rand(0, 5));
 
-//Расшифровываем чёрный ящик из разбившегося самолёта
+    //Расшифровываем чёрный ящик из разбившегося самолёта
 $decode = $engineer->decodeBox($getBox);
 
 foreach ($decode as $value) {
