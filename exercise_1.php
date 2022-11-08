@@ -2,44 +2,14 @@
 
 class Database
 {
-    public $id;
-    public $name;
-    public $surname;
-    public static $birthday;
-    public static $gender;
-    public $birthplace;
+    public ?int $id;
+    public ?string $name;
+    public ?string $surname;
+    public ?string $birthday;
+    public ?int $gender;
+    public ?string $birthplace;
 
-    public function addData()
-    {
-        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');  
-        $result = $pdo->prepare("INSERT INTO `users` (id, name, surname, birthday, gender, birthplace)
-        values (:id, :name, :surname, :birthday, :gender, :birthplace)");
-        $result->execute([':id' => $this->id, ':name' => $this->name, ':surname' => $this->surname, ':birthday' => $this->birthday, ':gender' => $this->gender, ':birthplace' => $this->birthplace]);
-        $pdo = null;
-        return $result;
-    }
-
-    public function deleteData()
-    {
-        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
-        $result = $pdo->prepare("DELETE FROM `users` WHERE id = :id");
-        $result->execute([':id' => $this->id]);
-        $pdo = null;
-        return $result;
-    }
-
-    public static function getAge($birthday)
-    {
-        $diff = date( 'Ymd' ) - date('Ymd', strtotime($birthday));   
-        return substr( $diff, 0, -4 );
-    }
-
-    public static function convert(int $gender)
-    {
-     return $gender ? 'male' : 'female';
-    }
-
-    public function __construct($id, $name, $surname, $birthday, $gender, $birthplace)
+    public function __construct(?int $id, $name = null, $surname = null, $birthday = null, $gender = null, $birthplace = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -48,16 +18,56 @@ class Database
         $this->gender = $gender;
         $this->birthplace = $birthplace;
 
-        // if (empty($id)) {
-        //     return $this->addData();
-        // } else {
-        //     if (find(int $id)) {                                                         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //         $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
-        //         $result = $pdo->prepare("SELECT * FROM 'users' WHERE id = :id");
-        //         $result->execute([':id' => $id]);
-        //         $pdo = null;
-        //     }
-        // }
+        if ($id === null) {
+            $this->addData();
+        } else {
+            $user = $this->getById($id);
+            $this->name = $user['name'];
+            $this->surname = $user['surname'];
+            $this->birthday = $user['birthday'];
+            $this->gender = $user['gender'];
+            $this->birthplace = $user['birthplace'];            
+        }
+    }
+
+    private function getById($id)
+    {
+        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
+                $result = $pdo->prepare("SELECT * FROM `users` WHERE id = :id");
+                $result->execute([':id' => $id]);
+                $pdo = null;
+                return $result;
+    }
+
+    private function connectToDb(string $field, array $value)
+    {
+        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');  
+        $result = $pdo->prepare($field);
+        $result->execute($value);
+        $pdo = null;
+        return $result;
+    }
+
+    private function addData()
+    {
+        return $this->connectToDb("INSERT INTO `users` (id, name, surname, birthday, gender, birthplace)
+        values (:id, :name, :surname, :birthday, :gender, :birthplace)", [':id' => $this->id, ':name' => $this->name, ':surname' => $this->surname, ':birthday' => $this->birthday, ':gender' => $this->gender, ':birthplace' => $this->birthplace]);
+    }
+
+    private function deleteData()
+    {
+        return $this->connectToDb("DELETE FROM `users` WHERE id = :id", [':id' => $this->id]);
+    }
+
+    private static function getAge(?string $birthday):int
+    {
+        $diff = date('Ymd') - date('Ymd', strtotime($birthday));   
+        return (int) substr( $diff, 0, -4 );
+    }
+
+    private static function convert(?int $gender)
+    {
+     return $gender ? 'male' : 'female';
     }
 
     public function returnFormatted()
@@ -75,12 +85,15 @@ class Database
 
 
 
-$x = new Database(1, 'Pet', 'Petov', '1995-09-10', 1, 'London');
+// $x = new Database(null, 'Pet', 'Petov', '1995-09-10', 1, 'London');
 
+$x = new Database(6);
 
-var_dump(Database::getAge('1995-09-10'));
+var_dump($x->returnFormatted());
+// var_dump($x->birthday);
 
-var_dump(Database::convert(0));
+// var_dump($x->getAge());
+
 
 
 ?>
