@@ -21,7 +21,7 @@ class Database
         if ($id === null) {
             $this->addData();
         } else {
-            $user = $this->getById($id);
+            $user = $this->getById($id)->fetch(PDO::FETCH_ASSOC);
             $this->name = $user['name'];
             $this->surname = $user['surname'];
             $this->birthday = $user['birthday'];
@@ -85,15 +85,11 @@ class Database
 
 
 
-// $x = new Database(null, 'Pet', 'Petov', '1995-09-10', 1, 'London');
+$x = new Database(null, 'Pet', 'Petov', '1995-09-10', 1, 'London');
 
 $x = new Database(6);
 
 var_dump($x->returnFormatted());
-// var_dump($x->birthday);
-
-// var_dump($x->getAge());
-
 
 
 ?>
