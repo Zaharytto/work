@@ -54,7 +54,7 @@ class Database
         values (:id, :name, :surname, :birthday, :gender, :birthplace)", [':id' => $this->id, ':name' => $this->name, ':surname' => $this->surname, ':birthday' => $this->birthday, ':gender' => $this->gender, ':birthplace' => $this->birthplace]);
     }
 
-    private function deleteData()
+    public function deleteData()
     {
         return $this->connectToDb("DELETE FROM `users` WHERE id = :id", [':id' => $this->id]);
     }
@@ -82,14 +82,5 @@ class Database
         return $class;        
     }
 }
-
-
-
-$x = new Database(null, 'Pet', 'Petov', '1995-09-10', 1, 'London');
-
-$x = new Database(6);
-
-var_dump($x->returnFormatted());
-
 
 ?>
