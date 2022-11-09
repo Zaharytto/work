@@ -55,14 +55,10 @@ class Database
 
     private function getById($id)
     {
-        $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
-                $result = $pdo->prepare("SELECT * FROM `users` WHERE `id` = :id");
-                $result->execute([':id' => $id]);
-                $pdo = null;
-                return $result;
+        return $this->connectToDb("SELECT * FROM `users` WHERE `id` = :id", [':id' => $id]);
     }
 
-    private function connectToDb(string $field, array $value)
+    public function connectToDb(string $field, array $value)
     {
         $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');  
         $result = $pdo->prepare($field);
