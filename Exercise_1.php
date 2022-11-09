@@ -59,11 +59,7 @@ class Database
 
     private function validate($name, $surname, $birthday, $gender, $birthplace)
     {
-        if (empty($name) || empty($surname) || empty($birthday) || empty($gender) || empty($birthplace)) {
-            return true;
-        } else {
-            return false;
-        }
+        return !empty($name) && !empty($surname) && !empty($birthday) && !empty($gender) && !empty($birthplace);
     }
 
     private function getById(int $id): array
