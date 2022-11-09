@@ -42,14 +42,25 @@ class Database
         $this->birthplace = $birthplace;
 
         if ($id === null) {
+            if ($this->validate($this->name, $this->surname, $this->birthday, $this->gender, $this->birthplace)) {
             $this->addData();
+            }            
         } else {
             $user = $this->getById($id)->fetch(PDO::FETCH_ASSOC);
             $this->name = $user['name'];
             $this->surname = $user['surname'];
             $this->birthday = $user['birthday'];
             $this->gender = $user['gender'];
-            $this->birthplace = $user['birthplace'];            
+            $this->birthplace = $user['birthplace']; 
+        }            
+    }
+
+    private function validate($name, $surname, $birthday, $gender, $birthplace)
+    {
+        if (empty($name) || empty($surname) || empty($birthday) || empty($gender) || empty($birthplace)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -102,4 +113,9 @@ class Database
     }
 }
 
+
+
+
+$x = new Database(16);
+var_dump($x->returnFormatted());
 ?>
