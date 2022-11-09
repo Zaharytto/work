@@ -43,10 +43,12 @@ class Database
 
         if ($id === null) {
             if ($this->validate($this->name, $this->surname, $this->birthday, $this->gender, $this->birthplace)) {
-            $this->addData();
+                $this->addData();
+            } else {
+                throw new Exception;
             }            
         } else {
-            $user = $this->getById($id)->fetch(PDO::FETCH_ASSOC);
+            $user = $this->getById($id);
             $this->name = $user['name'];
             $this->surname = $user['surname'];
             $this->birthday = $user['birthday'];
@@ -64,9 +66,15 @@ class Database
         }
     }
 
-    private function getById($id)
+    private function getById(int $id): array
     {
-        return $this->connectToDb("SELECT * FROM `users` WHERE `id` = :id", [':id' => $id]);
+        $user =  $this->connectToDb("SELECT * FROM users WHERE id = :id", [':id' => $id]);
+
+        if ($user) {
+            return $user->fetch(PDO::FETCH_ASSOC);
+        }
+
+        throw new Exception ('user with id' . $id . 'not found');
     }
 
     public function connectToDb(string $field, array $value)
