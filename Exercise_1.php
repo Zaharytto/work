@@ -109,9 +109,4 @@ class Database
     }
 }
 
-
-
-
-$x = new Database(5);
-var_dump($x->returnFormatted());
 ?>
