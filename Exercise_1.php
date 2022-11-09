@@ -1,5 +1,28 @@
 <?php
 
+/**
+ * Автор: Захар Кравченко
+ * 
+ * Дата реализации: 08. 11. 2022 14:00
+ * 
+ * Дата изменения: 09. 11. 2022 13:00
+ * 
+ * Работа с БД: MySQL Workbanch 8.0 CE
+ */
+
+/**
+ * class: Database
+ * Класс для работы с базой данных.
+ * connectToDb() - подключение к БД.
+ * getById() - возвращает информацию о человеке по id.
+ * addData() - Сохранение полей экземпляра класса в БД.
+ * deleteData() -  Удаление человека из БД в соответствии с id объекта.
+ * getAge() -  преобразование даты рождения в возраст. 
+ * convert() - преобразование пола из двоичной системы в текстовую. 
+ * __construct() - либо создает человека в БД с заданной информацией, либо берет информацию из БД по id. 
+ * returnFormatted() - Форматирование человека с преобразованием возраста и пола
+ */
+
 class Database
 {
     public ?int $id;
@@ -33,7 +56,7 @@ class Database
     private function getById($id)
     {
         $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
-                $result = $pdo->prepare("SELECT * FROM `users` WHERE id = :id");
+                $result = $pdo->prepare("SELECT * FROM `users` WHERE `id` = :id");
                 $result->execute([':id' => $id]);
                 $pdo = null;
                 return $result;
@@ -56,7 +79,7 @@ class Database
 
     public function deleteData()
     {
-        return $this->connectToDb("DELETE FROM `users` WHERE id = :id", [':id' => $this->id]);
+        return $this->connectToDb("DELETE FROM `users` WHERE `id` = :id", [':id' => $this->id]);
     }
 
     private static function getAge(?string $birthday):int
