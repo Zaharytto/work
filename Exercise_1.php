@@ -11,16 +11,7 @@
  */
 
 /**
- * class: Database
  * Класс для работы с базой данных.
- * connectToDb() - подключение к БД.
- * getById() - возвращает информацию о человеке по id.
- * addData() - Сохранение полей экземпляра класса в БД.
- * deleteData() -  Удаление человека из БД в соответствии с id объекта.
- * getAge() -  преобразование даты рождения в возраст. 
- * convert() - преобразование пола из двоичной системы в текстовую. 
- * __construct() - либо создает человека в БД с заданной информацией, либо берет информацию из БД по id. 
- * returnFormatted() - Форматирование человека с преобразованием возраста и пола
  */
 
 class Database
@@ -57,23 +48,24 @@ class Database
         }            
     }
 
-    private function validate($name, $surname, $birthday, $gender, $birthplace)
+    private function validate($name, $surname, $birthday, $gender, $birthplace):bool
     {
         return !empty($name) && !empty($surname) && !empty($birthday) && !empty($gender) && !empty($birthplace);
     }
 
-    private function getById(int $id): array
+    private function getById(int $id):array
     {
         $user =  $this->connectToDb("SELECT * FROM users WHERE id = :id", [':id' => $id]);
+        $user = $user->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            return $user->fetch(PDO::FETCH_ASSOC);
-        }
+        if($user){
+            return $user;
+            }
 
         throw new Exception ('user with id' . $id . 'not found');
     }
 
-    public function connectToDb(string $field, array $value)
+    public function connectToDb(string $field, array $value):object
     {
         $pdo = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');  
         $result = $pdo->prepare($field);
@@ -82,13 +74,13 @@ class Database
         return $result;
     }
 
-    private function addData()
+    private function addData():object
     {
         return $this->connectToDb("INSERT INTO `users` (id, name, surname, birthday, gender, birthplace)
         values (:id, :name, :surname, :birthday, :gender, :birthplace)", [':id' => $this->id, ':name' => $this->name, ':surname' => $this->surname, ':birthday' => $this->birthday, ':gender' => $this->gender, ':birthplace' => $this->birthplace]);
     }
 
-    public function deleteData()
+    public function deleteData():object
     {
         return $this->connectToDb("DELETE FROM `users` WHERE `id` = :id", [':id' => $this->id]);
     }
@@ -99,12 +91,12 @@ class Database
         return (int) substr( $diff, 0, -4 );
     }
 
-    private static function convert(?int $gender)
+    private static function convert(?int $gender): string
     {
      return $gender ? 'male' : 'female';
     }
 
-    public function returnFormatted()
+    public function returnFormatted():object
     {
         $class =  new StdClass();
         $class->id = $this->id;
@@ -120,6 +112,6 @@ class Database
 
 
 
-$x = new Database(16);
+$x = new Database(5);
 var_dump($x->returnFormatted());
 ?>
