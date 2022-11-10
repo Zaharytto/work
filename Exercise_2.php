@@ -96,8 +96,6 @@ $id[] .= $this->connectToDb("SELECT id FROM users WHERE id = :id",[':id' => $val
 
 
 
-
-
  $this->idPerson = $idPerson;
         foreach($this->people as $value) { //$this->people or $people ???? 
             $result = $this->connectToDb("SELECT id FROM users WHERE id $operator :id",[':id' => $idPerson]);
