@@ -15,7 +15,7 @@ class People extends Database
     {
         $this->idPerson = $idPerson;
         foreach($this->people as $value) { //$this->people or $people ???? 
-            $x = $this->connectToDb("SELECT id FROM users WHERE id = :id",[':id' => $idPerson]);
+            $x = $this->connectToDb("SELECT id FROM users WHERE id == :id",[':id' => $idPerson]);
             $x = $x->fetch(PDO::FETCH_ASSOC);
             $people[] .= $x;
         }
@@ -41,7 +41,7 @@ class People extends Database
 }
 
 
-$array = [1];
+$array = [1, 15];
 
 $f = new People($array);
 var_dump($f);
