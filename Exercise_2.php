@@ -11,10 +11,38 @@ class People extends Database
 {
     public array $people = [];
 
-    public function __construct($people, $operator)//Конструктор ведет поиск id людей по всем полям БД  
-    {                                                      //(поддержка выражений больше, меньше, не равно);
-        $result = $this->connectToDb("SELECT id FROM users WHERE name $operator :name", [':name' => $this->name]);
+    public function __construct(int $id, string $idOperator, string $name, string $nameOperator, 
+        string $surname, string $surnameOperator, string $birthday, string $birthdayOperator,
+        int $gender, string $genderOperator, string $birthplace, string $birthplaceOperator)  
+    {            
+        $sql = "SELECT id FROM users WHERE";
+        $execute = null;
+        if ($id && $idOperator) {
+            $sql .= "id $idOperator :id";
+            $execute = [':id' => $id];
+        }
+        if ($name && $nameOperator) {
+            $sql .= "name $nameOperator :name";
+            $execute = [':name' => $name];
+        }
+        if ($surname && $surnameOperator) {
+            $sql .= "surname $surnameOperator :surname";
+            $execute = [':surname' => $surname];
+        }
+        if ($birthday && $birthdayOperator) {
+            $sql .= "birthday $birthdayOperator :birthday";
+            $execute = [':birthday' => $birthday];
+        }
+        if ($gender && $genderOperator) {
+            $sql .= "gender $genderOperator :gender";
+            $execute = [':gender' => $gender];
+        }
+        if ($birthplace && $birthplaceOperator) {
+            $sql .= "birthplace $birthplaceOperator :birthplace";
+            $execute = [':birthplace' => $birthplace];
+        }
 
+        $result = $this->connectToDb($sql, $execute);
     }
 
     public function getPeople($idPerson, $operator)                   //Получение массива экземпляров класса 1 из массива с id людей 
@@ -41,14 +69,14 @@ class People extends Database
 
 
 
-$people = new People(15, '=');
+$people = new People(15, '=', 'Pet', '=', 'Petov', '=', '1995-09-10', '=', 1, '=', 'London', '=');
 
 
-$peopleGet = $people->getPeople(15, '=');
+// $peopleGet = $people->getPeople(15, '=');
 
 
 
-var_dump($peopleGet);
+// var_dump($peopleGet);
 
 
 
