@@ -15,9 +15,9 @@ class People extends Database
     {
         $this->idPerson = $idPerson;
         foreach($this->people as $value) { //$this->people or $people ???? 
-            $x = $this->connectToDb("SELECT id FROM users WHERE id $operator :id",[':id' => $idPerson]);
-            $x = $x->fetch(PDO::FETCH_ASSOC);
-            $people[] .= $x;
+            $result = $this->connectToDb("SELECT id FROM users WHERE id $operator :id",[':id' => $idPerson]);
+            $result = $result->fetch(PDO::FETCH_ASSOC);
+            $people[] .= $result;
         }
         //(поддержка выражений больше, меньше, не равно)  ????
     }
