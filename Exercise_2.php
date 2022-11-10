@@ -42,16 +42,15 @@ class People extends Database
 
 
 
-$x = null;
 
-$f = new People(15, '=');
-
-
-$q = $f->getPeople(15, '=');
+$people = new People(15, '=');
 
 
+$peopleGet = $people->getPeople(15, '=');
 
-var_dump($q);
+
+
+var_dump($peopleGet);
 
 
 
