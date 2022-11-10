@@ -11,12 +11,10 @@ class People extends Database
 {
     public array $people = [];
 
-    public function __construct($people, $operator)//Конструктор ведет поиск id людей по всем полям БД 
-                                                    //(поддержка выражений больше, меньше, не равно);  
-    {
+    public function __construct($people, $operator)//Конструктор ведет поиск id людей по всем полям БД  
+    {                                                      //(поддержка выражений больше, меньше, не равно);
+        $result = $this->connectToDb("SELECT id FROM users WHERE name $operator :name", [':name' => $this->name]);
 
-        $this->getPeople($people, $operator);
-        
     }
 
     public function getPeople($idPerson, $operator)                   //Получение массива экземпляров класса 1 из массива с id людей 
