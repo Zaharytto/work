@@ -104,8 +104,6 @@ $id[] .= $this->connectToDb("SELECT id FROM users WHERE id = :id",[':id' => $val
         } 
 
 
-
-
   $result = [];
         foreach($this->people as $key => $value) {
             $result[] .= $this->getById($people[$key]);
