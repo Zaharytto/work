@@ -3,10 +3,10 @@
 require_once $_SERVER['DOCUMENT_ROOT'].'/TZ2/src/UserRepository.php';
 
 
-$userRepository = new UserRepository();
+
 
 try {
-    
+    $userRepository = new UserRepository();
     $user = $userRepository->get($id);
     
     echo json_decode([

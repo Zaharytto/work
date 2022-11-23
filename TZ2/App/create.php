@@ -8,8 +8,7 @@ try {
 
     echo json_encode([
         'status' => true,
-        'message' => '', 
-        'user' => $user
+        'message' => '',
     ]);
 
 } catch(Exception $exception) {

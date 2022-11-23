@@ -62,3 +62,7 @@ p.error {
 #all {
     background: orangered;
 }
+
+#success {
+    background: yellowgreen;
+}

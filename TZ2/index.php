@@ -15,6 +15,7 @@
 <body>
 
     <p id= "all"></p>
+    <p id= "success" style= "display: none">Вы зарегистрированы!</p>
 
     <form id="form-create-user" >
         <div class="form-element">
@@ -122,7 +123,9 @@
                         all.textContent = data.message;
                     } else {
                         var all = document.getElementById("all");
-                        all.textContent = ''; 
+                        var success = document.getElementById("success");
+                        all.textContent = '';
+                        success.style.display = 'block';
                     }
                 }
                 })
