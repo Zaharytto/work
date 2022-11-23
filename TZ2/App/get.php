@@ -2,20 +2,24 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/TZ2/src/UserRepository.php';
 
-try {
-    $userRepository = new UserRepository();
-    $userRepository->create($_POST['login'], $_POST['password'], $_POST['email'], $_POST['name']);
 
-    echo json_encode([
+$userRepository = new UserRepository();
+
+try {
+    
+    $user = $userRepository->get($id);
+    
+    echo json_decode([
         'status' => true,
-        'message' => '', 
+        'message' => '',
         'user' => $user
     ]);
 
 } catch(Exception $exception) {
   
-    echo json_encode([
+    echo json_decode([
         'status' => false,
         'message' => $exception->getMessage()
     ]);
 }
+

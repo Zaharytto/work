@@ -1,110 +1,115 @@
 <?php
 
-
 class UserRepository
 {
-    public function create($add)
+    private const FILE_PATH = '/TZ2/data/repository.json';
+
+    public function __construct()
+    {
+        if($this->isFileExist() === false){
+            throw new Exception('json file empty');
+        }
+    }
+
+    private function isFileExist(): bool
+    {
+      return file_exists($_SERVER['DOCUMENT_ROOT'] . self::FILE_PATH);  
+    }
+
+    private function getFile()
+    {
+        return file_get_contents($_SERVER['DOCUMENT_ROOT'] . self::FILE_PATH);
+    }
+
+    private function isUserExist($login): bool
+    {
+        $result = null;
+
+        $file = $this->getFile();
+        $users = (array) json_decode($file);
+
+        $result = array_search($login, array_column($users, 'login'));
+
+        if($result !== false) {
+            return true;
+        } 
+        return false;
+    }
+
+    public function create(string $login, string $password, string $email, string $name): void
     {   
-        $file = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/TZ2/data/repository.json');
-        $users = [];
-        if ($file !== '') {
+        if ($this->isUserExist($login) === false) {
+
+            $file = $this->getFile();
             $users = (array) json_decode($file);
-        }
+                    
+            $users[] = [
+                'login' => $login,
+                'password' => md5($password),
+                'email' => $email,
+                'name' => $name
+            ];
+    
+            file_put_contents($_SERVER['DOCUMENT_ROOT'] . self::FILE_PATH, json_encode($users, JSON_FORCE_OBJECT));
+    
+            return;
+        } 
 
-        $users[] = $add;
-        return file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/TZ2/data/repository.json',json_encode($users, JSON_FORCE_OBJECT));
+        throw new Exception('Пользователь с таким логином уже существует');
+
     }
 
-    public function get($id)
+    
+
+    public function get(int $id): ?array
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/TZ2/data/repository.json')){
-            $usersJson = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/TZ2/data/repository.json');
-            $usersJsonArray = (array) json_decode($usersJson, true);
-            if (!isset($usersJsonArray[$id])) {
-                return null;
-            }
-            return json_encode($usersJsonArray[$id]);
+        $usersJson = $this->getFile();
+        $usersJsonArray = (array) json_decode($usersJson, true);
+        
+        if (!isset($usersJsonArray[$id])) {
+            return null;
         }
+        
+        return $usersJsonArray[$id];
+        
     }
 
-    // public function delete($delete)
-    // {
-    //     if ($delete){
-    //         unset($delete);  // удаляет полностью, поэтому и ошибка на 31
-    //         file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/TZ/data/repository.json', json_encode($delete, JSON_FORCE_OBJECT)); //- это для ключа
-    //     }    
-    // }
-
-    public function update($id, $name, $login)
+    public function delete(int $id): void
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/TZ2/data/repository.json')) {
-            if ($this->get($id) === null ) {
-                return null;                
-            }
+        $user = $this->get($id);
+
+        if ($user === null ) {
+            throw new Exception('user with id ' . $id . ' not found');
         }
+
+        unset($users[$id]);
+
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . self::FILE_PATH, json_encode($users, JSON_FORCE_OBJECT));
+
+        return;
     }
+
+    public function update(int $id, string $login, string $password, string $email, string $name): void
+    {
+        $user = $this->get($id);
+
+        if ($user === null ) {
+            throw new Exception('user with id ' . $id . ' not found');
+        }
+
+        $file = $this->getFile();
+        $users = (array) json_decode($file);
+
+        $users[$id]['login'] = $login;
+        $users[$id]['password'] = $password;
+        $users[$id]['email'] = $email;
+        $users[$id]['name'] = $name;
+            
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . self::FILE_PATH, json_encode($users, JSON_FORCE_OBJECT));
+
+        return;
+    }
+
+
 }
 
-
-
-
-$user = new UserRepository();
-$user->create($_POST);
-
-
-
-
-/*
-
-class DataConnection 
-{
-    public $todoName = htmlspecialchars($_POST['todo']);
-    public $todoName = trim($todoName);
-    public $jsonArray = [];
- 
-    //Если файл существует - получаем его содержимое
-    public function getUser()
-    {
-        if (file_exists('todo.json')){
-            $json = file_get_contents('todo.json');
-            $jsonArray = json_decode($json, true);
-
-        }
-    }
-
-    // Делаем запись в файл
-    public function addUser()
-    {
-        if ($todoName){
-            $jsonArray[] = $todoName;
-            file_put_contents('todo.json', json_encode($jsonArray, JSON_FORCE_OBJECT));
-            header('Location: '. $_SERVER['HTTP_REFERER']);
-        } 
-    }
-
-
-    // Удаление записи
-    public function deleteUser()
-    {
-        $key = @$_POST['todo_name'];
-        if (isset($_POST['del'])){
-            unset($jsonArray[$key]);
-            file_put_contents('todo.json', json_encode($jsonArray, JSON_FORCE_OBJECT));
-            header('Location: '. $_SERVER['HTTP_REFERER']);
-        } 
-    }
-
-    // Редактирование
-    public function userUpdate()
-    {
-        if (isset($_POST['save'])){
-            $jsonArray[$key] = @$_POST['title'];
-            file_put_contents('todo.json', json_encode($jsonArray, JSON_FORCE_OBJECT));
-            header('Location: '. $_SERVER['HTTP_REFERER']);
-        } 
-    }
-}
- 
-*/
-
- 
