@@ -12,7 +12,7 @@ class CreateWritingObject implements FactoryMethod
         } else if ($product === static::PENCIL) {
             return new Pencil();            
         } else {
-            throw new Exception('По-другому писать не умеем');
+            throw new Exception('Умеем писать только ручкой или карандашом');
         }
     }
 }
