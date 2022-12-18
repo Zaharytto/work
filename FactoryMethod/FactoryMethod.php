@@ -2,5 +2,5 @@
 
 interface FactoryMethod
 {
-    public function getWritingObject($product): WritingObject;
+    public function getWritingObject(string $product): WritingObject;
 }
