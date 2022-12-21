@@ -2,5 +2,5 @@
 
 interface InterfaceCreateSignature
 {
-    public function getSignature(string $signature): interfaceSignature;
+    public function getSignature(string $signature): InterfaceSignature;
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/createSignature.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/CreateSignature.php';
 
 
 try {

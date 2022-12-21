@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/interface/interfaceNumber.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/interface/InterfaceNumber.php';
 
 
 class OfficeNumberInWarsaw implements InterfaceNumber

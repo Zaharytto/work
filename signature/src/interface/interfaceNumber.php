@@ -2,5 +2,5 @@
 
 interface InterfaceNumber
 {
-    public function getNumber();
+    public function getNumber(): string;
 }

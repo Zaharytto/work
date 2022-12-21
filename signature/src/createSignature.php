@@ -1,8 +1,8 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/interface/interfaceCreateSignature.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionSignature/greenSignature.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionSignature/redSignature.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/interface/InterfaceCreateSignature.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionSignature/GreenSignature.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionSignature/RedSignature.php';
 
 
 class CreateSignature implements InterfaceCreateSignature
@@ -14,7 +14,8 @@ class CreateSignature implements InterfaceCreateSignature
     {
         if ($signature === static::RED_SIGNATURE) {
             return new RedSignature();            
-        } elseif ($signature === static::GREEN_SIGNATURE) {
+        } 
+        if ($signature === static::GREEN_SIGNATURE) {
             return new GreenSignature();            
         }
 

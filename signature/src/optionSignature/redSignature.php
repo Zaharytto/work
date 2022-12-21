@@ -1,8 +1,8 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/interface/interfaceSignature.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionNumber/officeNumberInMinsk.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionNumber/officeNumberInWarsaw.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/interface/InterfaceSignature.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionNumber/OfficeNumberInMinsk.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/signature/src/optionNumber/OfficeNumberInWarsaw.php';
 
 class RedSignature implements InterfaceSignature
 {
